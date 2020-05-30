@@ -36,7 +36,7 @@ COLORS = {
     16: (255, 235, 255),
     32: (255, 235, 128),
     64: (255, 235, 0),
-    # 128:
+    128: (255, 130, 0),
     # 256:
     # 512:
     # 1024:
@@ -62,7 +62,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
 draw_interface()
 pygame.display.update()
-while is_zero_in_mas(mas):
+while is_zero_in_mas(mas) or can_move(mas):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -72,6 +72,10 @@ while is_zero_in_mas(mas):
                 mas = move_left(mas)
             elif event.key == pygame.K_RIGHT:
                 mas = move_right(mas)
+            elif event.key == pygame.K_UP:
+                mas = move_up(mas)
+            elif event.key == pygame.K_DOWN:
+                mas = move_down(mas)
 
             empty = get_empty_list(mas)
             random.shuffle(empty)
