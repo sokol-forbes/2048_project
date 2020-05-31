@@ -1,7 +1,7 @@
 from logics import *
 import pygame
 import sys
-from database import get_best, cur
+from database import get_best, cur, insert_result
 
 GAMERS_DB = get_best()
 
@@ -63,10 +63,10 @@ COLORS = {
     32: (255, 235, 128),
     64: (255, 235, 0),
     128: (255, 130, 0),
-    # 256:
-    # 512:
-    # 1024:
-    # 2048:
+    256: (255, 130, 255),
+    512: (130, 250, 250)
+    1024: (130, 170, 250)
+    2048: (130, 250, 250)
 }
 WHITE = (255, 255, 255)
 GRAY = (130, 130, 130)
@@ -141,7 +141,7 @@ def draw_game_over():
     else:
         text = f"Record {best_score}"
     text_record = font.render(text, True, WHITE)
-
+    insert_result(USERNAME, score)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
