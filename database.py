@@ -19,4 +19,5 @@ def get_best():
     """)
     return cur.fetchall()
 
+
 print(get_best())

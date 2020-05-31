@@ -120,7 +120,7 @@ class Test2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ]
-        self.assertEqual(move_up(mas), (res,24))
+        self.assertEqual(move_up(mas), (res, 24))
 
     def test_15(self):
         mas = [
@@ -135,7 +135,7 @@ class Test2048(unittest.TestCase):
             [4, 0, 0, 2],
             [8, 8, 4, 4],
         ]
-        self.assertEqual(move_down(mas), (res,24))
+        self.assertEqual(move_down(mas), (res, 24))
 
     def test_16(self):
         mas = [

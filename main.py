@@ -13,9 +13,9 @@ def draw_top_gamers():
     screen.blit(text_head, (250, 5))
     for index, gamer in enumerate(GAMERS_DB):
         name, score = gamer
-        s = f"{index+1}.{name} - {score}"
+        s = f"{index + 1}.{name} - {score}"
         text_gamer = font_gamer.render(s, True, COLOR_TEXT)
-        screen.blit(text_gamer, (250, 30+30*index))
+        screen.blit(text_gamer, (250, 30 + 30 * index))
         print(index, name, score)
 
 
@@ -79,6 +79,7 @@ WIDTH = BLOCKS * SIZE_BLOCK + (BLOCKS + 1) * MARGIN
 HEIGHT = WIDTH + 110
 TITLE_REC = pygame.Rect(0, 0, WIDTH, 110)
 score = 0
+USERNAME = None
 
 mas[1][2] = 2
 mas[3][0] = 4
@@ -90,6 +91,47 @@ print(get_empty_list(mas))
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
+
+
+def draw_intro():
+    img2048 = pygame.image.load('IMG2048.png')
+    font = pygame.font.SysFont("stxingkai", 70)
+    text_welcom = font.render("Welcome!", True, WHITE)
+    name = 'Enter name'
+    is_find_name = False
+    while not is_find_name:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode.isalpha():
+                    if name == 'Enter name':
+                        name = event.unicode
+                    else:
+                        name += event.unicode
+                elif event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                elif event.key == pygame.K_RETURN:
+                    if len(name) > 2:
+                        global USERNAME
+                        USERNAME = name
+                        is_find_name = True
+                        break
+
+        screen.fill(BLACK)
+        text_name = font.render(name, True, WHITE)
+        rect_name = text_name.get_rect()
+        rect_name.center = screen.get_rect().center
+        screen.blit(pygame.transform.scale(img2048, [200, 200]), [10, 10])
+        screen.blit(text_welcom, (230, 80))
+        screen.blit(text_name, rect_name)
+        pygame.display.update()
+    screen.fill(BLACK)
+
+
+draw_intro()
+
 draw_interface(score)
 pygame.display.update()
 while is_zero_in_mas(mas) or can_move(mas):
@@ -117,3 +159,5 @@ while is_zero_in_mas(mas) or can_move(mas):
             pretty_print(mas)
             draw_interface(score, delta)
             pygame.display.update()
+
+    print(USERNAME)
