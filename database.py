@@ -8,13 +8,15 @@ create table if not exists RECORDS(
 name text,
 score integer
 )""")
-cur.execute("""
-SELECT name, max(score) score from RECORDS
-GROUP by name
-ORDER by score DESC
-limit 3
-""")
 
-result = cur.fetchall()
-print(result)
-cur.close()
+
+def get_best():
+    cur.execute("""
+    SELECT name, max(score) score from RECORDS
+    GROUP by name
+    ORDER by score DESC
+    limit 3
+    """)
+    return cur.fetchall()
+
+print(get_best())
